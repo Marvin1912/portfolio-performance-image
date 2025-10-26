@@ -9,7 +9,7 @@ ARG ARCHITECTURE=linux.gtk.x86_64
 # Can be packaged with firefox, nextcloud, firefox-nextcloud, or none
 ARG PACKAGING=none
 
-ARG VERSION=0.70.3
+ARG VERSION=0.80.3
 ENV ARCHIVE=https://github.com/buchen/portfolio/releases/download/${VERSION}/PortfolioPerformance-${VERSION}-${ARCHITECTURE}.tar.gz
 ENV APP_ICON_URL=https://www.portfolio-performance.info/images/logo.png
 
