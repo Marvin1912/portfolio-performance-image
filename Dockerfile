@@ -24,7 +24,8 @@ RUN \
     wget \
     gnupg \
     ca-certificates \
-    curl && \
+    curl \
+    tcpdump && \
     # Add Eclipse Temurin repository for Java 21
     mkdir -p /etc/apt/keyrings && \
     curl -fsSL https://packages.adoptium.net/artifactory/api/gpg/key/public | gpg --dearmor -o /etc/apt/keyrings/adoptium.gpg && \
