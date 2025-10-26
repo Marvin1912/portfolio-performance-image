@@ -9,7 +9,7 @@ ARG ARCHITECTURE=linux.gtk.x86_64
 # Can be packaged with firefox, nextcloud, firefox-nextcloud, or none
 ARG PACKAGING=none
 
-ARG VERSION=0.70.3
+ARG VERSION=0.80.3
 ENV ARCHIVE=https://github.com/buchen/portfolio/releases/download/${VERSION}/PortfolioPerformance-${VERSION}-${ARCHITECTURE}.tar.gz
 ENV APP_ICON_URL=https://www.portfolio-performance.info/images/logo.png
 
@@ -19,8 +19,20 @@ RUN apt-get update && apt-get install -y wget && \
 
 # Install dependencies.
 RUN \
+    apt-get update && \
     apt-get install -y \
-    openjdk-17-jre \
+    wget \
+    gnupg \
+    ca-certificates \
+    curl && \
+    # Add Eclipse Temurin repository for Java 21
+    mkdir -p /etc/apt/keyrings && \
+    curl -fsSL https://packages.adoptium.net/artifactory/api/gpg/key/public | gpg --dearmor -o /etc/apt/keyrings/adoptium.gpg && \
+    echo "deb [signed-by=/etc/apt/keyrings/adoptium.gpg] https://packages.adoptium.net/artifactory/deb bookworm main" > /etc/apt/sources.list.d/adoptium.list && \
+    apt-get update && \
+    # Install Java 21 and other dependencies
+    apt-get install -y \
+    temurin-21-jre \
     libwebkit2gtk-4.1-0 && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
@@ -103,6 +115,9 @@ RUN \
 ENV APP_NAME="Portfolio Performance"
 ENV APP_VERSION=${VERSION}
 ENV DOCKER_IMAGE_VERSION=${VERSION}-${TARGETARCH}-${PACKAGING}
+
+# Set Java environment variables
+ENV JAVA_HOME=/usr/lib/jvm/temurin-21-jre-amd64
 
 # Copy the start script.
 COPY rootfs/ /
