@@ -26,8 +26,6 @@ RUN \
     ca-certificates \
     curl \
     tcpdump && \
-    # Create tcpdump user for privilege dropping
-    useradd -r -s /sbin/nologin tcpdump && \
     # Add Eclipse Temurin repository for Java 21
     mkdir -p /etc/apt/keyrings && \
     curl -fsSL https://packages.adoptium.net/artifactory/api/gpg/key/public | gpg --dearmor -o /etc/apt/keyrings/adoptium.gpg && \
