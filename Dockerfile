@@ -20,7 +20,6 @@ RUN apt-get update && apt-get install -y wget && \
 # Install dependencies.
 RUN \
     apt-get install -y \
-    openjdk-21-jre \
     libwebkit2gtk-4.1-0 && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
